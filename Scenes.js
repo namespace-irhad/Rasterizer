@@ -12,9 +12,13 @@ const vertices = [
   new Vertex(1, -1, -1),
 ];
 
-const wood_texture = new Texture('./assets/crate-texture.jpg');
-const bump_wood_texture = new BumpMap('./assets/bump-map.png');
-const triangles = [
+let wood_texture = new Texture('./assets/crate-texture.jpg');
+// const bump_wood_texture = new BumpMap('./assets/bump-map.png');
+// const bump_wood_texture = new BumpMap('./assets/normal.jpg');
+const bump_wood_texture = new BumpMap('./assets/bricks.png');
+// const bump_wood_texture = new BumpMap('./assets/rock.jpg');
+
+let triangles = [
   new Triangle(
     [0, 1, 2],
     Color.RED,
@@ -122,13 +126,113 @@ let SetUsePerspectiveCorrectDepth = function (use_perspective_correct_depth) {
 };
 
 const Scene1 = () => {
+  wood_texture = new Texture('./assets/steel-texture.webp');
+  triangles = [
+    new Triangle(
+      [0, 1, 2],
+      Color.RED,
+      [new Vertex(0, 0, 1), new Vertex(0, 0, 1), new Vertex(0, 0, 1)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [0, 2, 3],
+      Color.RED,
+      [new Vertex(0, 0, 1), new Vertex(0, 0, 1), new Vertex(0, 0, 1)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [4, 0, 3],
+      Color.GREEN,
+      [new Vertex(1, 0, 0), new Vertex(1, 0, 0), new Vertex(1, 0, 0)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [4, 3, 7],
+      Color.GREEN,
+      [new Vertex(1, 0, 0), new Vertex(1, 0, 0), new Vertex(1, 0, 0)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [5, 4, 7],
+      Color.BLUE,
+      [new Vertex(0, 0, -1), new Vertex(0, 0, -1), new Vertex(0, 0, -1)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [5, 7, 6],
+      Color.BLUE,
+      [new Vertex(0, 0, -1), new Vertex(0, 0, -1), new Vertex(0, 0, -1)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [1, 5, 6],
+      Color.YELLOW,
+      [new Vertex(-1, 0, 0), new Vertex(-1, 0, 0), new Vertex(-1, 0, 0)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [1, 6, 2],
+      Color.YELLOW,
+      [new Vertex(-1, 0, 0), new Vertex(-1, 0, 0), new Vertex(-1, 0, 0)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [1, 0, 5],
+      Color.PURPLE,
+      [new Vertex(0, 1, 0), new Vertex(0, 1, 0), new Vertex(0, 1, 0)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [5, 0, 4],
+      Color.PURPLE,
+      [new Vertex(0, 1, 0), new Vertex(0, 1, 0), new Vertex(0, 1, 0)],
+      wood_texture,
+      [new Pt(0, 1), new Pt(1, 1), new Pt(0, 0)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [2, 6, 7],
+      Color.CYAN,
+      [new Vertex(0, -1, 0), new Vertex(0, -1, 0), new Vertex(0, -1, 0)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)],
+      bump_wood_texture
+    ),
+    new Triangle(
+      [2, 7, 3],
+      Color.CYAN,
+      [new Vertex(0, -1, 0), new Vertex(0, -1, 0), new Vertex(0, -1, 0)],
+      wood_texture,
+      [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)],
+      bump_wood_texture
+    ),
+  ];
+
   sceneTitleElement.textContent = 'Environment Map (Front, Right, Behind, Left)';
   let instances = [
     new Instance(cube, new Vertex(-2, 1, 5), MakeOYRotationMatrix(30)),
     new Instance(cube, new Vertex(3, 0, 0), MakeOYRotationMatrix(-30)),
     new Instance(cube, new Vertex(-2, 0, 10), MakeOYRotationMatrix(-30)),
     new Instance(cube, new Vertex(5, 0, 12), MakeOYRotationMatrix(90)),
-    new Instance(cube, new Vertex(-2, 1, 5), Identity4x4, 0.75), // BumpMap Showcase
+    // new Instance(cube, new Vertex(-2, 1, 5), Identity4x4, 0.75), // BumpMap Showcase
     new Instance(cube, new Vertex(1.25, 2.5, 7.5), MakeOYRotationMatrix(195)),
     // new Instance(GenerateSphere(15, Color.GREEN), new Vertex(10, -5, 20), Identity4x4, 5),
   ];
@@ -172,50 +276,58 @@ const Scene1 = () => {
       Rasterizer.ClearAll();
 
       const environmentTexture = new Texture(envTextures[2]);
+      const environmentTexture1 = new Texture(envTextures[0]);
+      const environmentTexture2 = new Texture(envTextures[1]);
+      const environmentTexture3 = new Texture(envTextures[3]);
+      const environmentTexture4 = new Texture(envTextures[4]);
+      const environmentTexture5 = new Texture(envTextures[5]);
       setTimeout(() => {
         environmentTexture.drawOnTop(wood_texture);
+        environmentTexture1.drawOnTop(wood_texture);
+        environmentTexture2.drawOnTop(wood_texture);
+        environmentTexture3.drawOnTop(wood_texture);
         // document.getElementById('camera-view').src = environmentTexture.image.src;
         const triangles2 = [
           new Triangle(
             [0, 1, 2],
             Color.RED,
             [new Vertex(0, 0, 1), new Vertex(0, 0, 1), new Vertex(0, 0, 1)],
-            environmentTexture,
+            environmentTexture1,
             [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)]
           ),
           new Triangle(
             [0, 2, 3],
             Color.RED,
             [new Vertex(0, 0, 1), new Vertex(0, 0, 1), new Vertex(0, 0, 1)],
-            environmentTexture,
+            environmentTexture1,
             [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)]
           ),
           new Triangle(
             [4, 0, 3],
             Color.GREEN,
             [new Vertex(1, 0, 0), new Vertex(1, 0, 0), new Vertex(1, 0, 0)],
-            environmentTexture,
+            environmentTexture2,
             [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)]
           ),
           new Triangle(
             [4, 3, 7],
             Color.GREEN,
             [new Vertex(1, 0, 0), new Vertex(1, 0, 0), new Vertex(1, 0, 0)],
-            environmentTexture,
+            environmentTexture2,
             [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)]
           ),
           new Triangle(
             [5, 4, 7],
             Color.BLUE,
             [new Vertex(0, 0, -1), new Vertex(0, 0, -1), new Vertex(0, 0, -1)],
-            environmentTexture,
+            environmentTexture3,
             [new Pt(0, 0), new Pt(1, 0), new Pt(1, 1)]
           ),
           new Triangle(
             [5, 7, 6],
             Color.BLUE,
             [new Vertex(0, 0, -1), new Vertex(0, 0, -1), new Vertex(0, 0, -1)],
-            environmentTexture,
+            environmentTexture3,
             [new Pt(0, 0), new Pt(1, 1), new Pt(0, 1)]
           ),
           new Triangle(

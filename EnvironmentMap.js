@@ -1,3 +1,29 @@
+// Makes a transform matrix for a rotation around the OX axis.
+const MakeOXRotationMatrix = function (degrees) {
+  var cos = Math.cos((degrees * Math.PI) / 180.0);
+  var sin = Math.sin((degrees * Math.PI) / 180.0);
+
+  return new Mat4x4([
+    [1, 0, 0, 0],
+    [0, cos, -sin, 0],
+    [0, sin, cos, 0],
+    [0, 0, 0, 1],
+  ]);
+};
+
+// Makes a transform matrix for a rotation around the OZ axis.
+const MakeOZRotationMatrix = function (degrees) {
+  var cos = Math.cos((degrees * Math.PI) / 180.0);
+  var sin = Math.sin((degrees * Math.PI) / 180.0);
+
+  return new Mat4x4([
+    [cos, -sin, 0, 0],
+    [sin, cos, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 1],
+  ]);
+};
+
 // Environment map for instances
 const EnvironmentMap = function (object, instances, lights, camera) {
   // Place a camera in the middle of the object and render the scene 4 times (each perpendicular direction excluding the top and bottom)
@@ -44,6 +70,28 @@ const EnvironmentMap = function (object, instances, lights, camera) {
     // Change the orientation of the camera for the next face
     camera.orientation = MultiplyMM4(camera.orientation, orientation);
   }
+
+  // Za gornju i donju stranu
+
+  // Get top face using MakeOXRotationMatrix(90)
+  const canvas = canvases[4];
+  const ctx = canvas.getContext('2d');
+  const canvasBuffer = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const orientation = MakeOXRotationMatrix(90);
+  const newInstances = instances.filter((instance) => instance.id !== object.id);
+  camera.orientation = MultiplyMM4(camera.orientation, orientation);
+  RenderScene(camera, newInstances, lights, canvas, canvasBuffer);
+  Rasterizer.updateCanvas(ctx, canvasBuffer);
+  // Get bottom face using MakeOXRotationMatrix(-90)
+  const canvas2 = canvases[5];
+  const ctx2 = canvas2.getContext('2d');
+  const canvasBuffer2 = ctx2.getImageData(0, 0, canvas2.width, canvas2.height);
+  const orientation2 = MakeOXRotationMatrix(-90);
+  const newInstances2 = instances.filter((instance) => instance.id !== object.id);
+  camera.orientation = MultiplyMM4(camera.orientation, orientation2);
+  RenderScene(camera, newInstances2, lights, canvas2, canvasBuffer2);
+  Rasterizer.updateCanvas(ctx2, canvasBuffer2);
+
   // Preview the environment map
   const previewCanvas = document.getElementById('test-canvas');
   previewCanvas.width = 600;
