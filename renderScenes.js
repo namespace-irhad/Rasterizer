@@ -8,59 +8,56 @@ renderButtonElement.addEventListener('click', () => {
     case '':
       break;
     case 'scene1':
-      addQueryParameter(window.location.href, 'scene', 'scene1');
+      saveScene('scene1');
       break;
     case 'scene2':
-      addQueryParameter(window.location.href, 'scene', 'scene2');
+      saveScene('scene2');
       break;
     case 'scene3':
-      addQueryParameter(window.location.href, 'scene', 'scene3');
+      saveScene('scene3');
       break;
     case 'scene4':
-      addQueryParameter(window.location.href, 'scene', 'scene4');
+      saveScene('scene4');
       break;
     default:
-      addQueryParameter(window.location.href, 'scene', 'scene5');
+      saveScene('scene5');
       break;
   }
 });
 
-function addQueryParameter(url, key, value) {
-  const query = url.split('?')[1];
-  const vars = query.split('&');
-  const newVars = [];
-  for (let i = 0; i < vars.length; i++) {
-    const pair = vars[i].split('=');
-    if (pair[0] !== key) {
-      newVars.push(vars[i]);
-    }
+// Save scene to local storage
+const saveScene = (scene) => {
+  // Check if scene is already saved
+  if (localStorage.getItem('scene') === null) {
+    localStorage.setItem('scene', scene);
   }
-  newVars.push(key + '=' + value);
-  const newQuery = newVars.join('&');
-  const newUrl = url.split('?')[0] + '?' + newQuery;
-  window.location.href = newUrl;
-}
-
-function getQueryParameter(key) {
-  const query = window.location.search.substring(1);
-  const vars = query.split('&');
-  for (let i = 0; i < vars.length; i++) {
-    const pair = vars[i].split('=');
-    if (pair[0] === key) {
-      return pair[1];
-    }
+  // If exists replace
+  else {
+    localStorage.removeItem('scene');
+    localStorage.setItem('scene', scene);
   }
-  return null;
-}
+  // Reload page
+  window.location.reload();
+};
 
-if (getQueryParameter('scene') === 'scene1') {
-  Scene1();
-} else if (getQueryParameter('scene') === 'scene2') {
-  Scene2();
-} else if (getQueryParameter('scene') === 'scene3') {
-  Scene3();
-} else if (getQueryParameter('scene') === 'scene4') {
-  Scene4();
-} else if (getQueryParameter('scene') === 'scene5') {
-  Scene5();
-}
+// When page loads, check if scene is saved and call Scene
+const checkScene = () => {
+  console.log(localStorage);
+  if (localStorage.getItem('scene') === 'scene1') {
+    Scene1();
+  }
+  if (localStorage.getItem('scene') === 'scene2') {
+    Scene2();
+  }
+  if (localStorage.getItem('scene') === 'scene3') {
+    Scene3();
+  }
+  if (localStorage.getItem('scene') === 'scene4') {
+    Scene4();
+  }
+  if (localStorage.getItem('scene') === 'scene5') {
+    Scene5();
+  }
+};
+
+document.addEventListener('DOMContentLoaded', checkScene);
