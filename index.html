@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rasterizer Projekat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      #canvas-container {
+        margin-top: 2rem;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 1rem;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+      }
+      #canvas {
+        display: block;
+        border: 2px solid darksalmon;
+      }
+      #test-canvas {
+        display: block;
+        border: 2px solid rgb(184, 60, 19);
+      }
+      #console-content {
+        position: absolute;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        left: 1rem;
+        top: 10vh;
+        gap: 0.5rem;
+        border: 2px solid black;
+      }
+      #console-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+      button {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.6rem;
+        border: 2px solid darksalmon;
+        border-radius: 0.25rem;
+        background-color: darksalmon;
+        color: white;
+        cursor: pointer;
+      }
+      #console-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        color: black;
+        background-color: rgb(201, 153, 137);
+        border-bottom: 2px solid darksalmon;
+      }
+      #console-title-2 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        color: black;
+        border: 2px solid black;
+        background-color: rgb(201, 153, 137);
+        border-bottom: 2px solid darksalmon;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="console">
+      <div id="console-content">
+        <div id="console-title-2">
+          Console
+        </div>
+          <select id="console-text-select-scene">
+            <option value="">Select a scene</option>
+            <option value="scene4">Scene 2 (OBJ Solja)</option>
+            <option value="scene5">Scene 2 (OBJ Auto)</option>
+            <option value="scene3">Scene 2 (OBJ Glava)</option>
+            <option value="scene1">Scene 3 (Environment)</option>
+            <option value="scene2">Scene 4 (Normal)</option>
+          </select>
+        <button id="console-text-button">Render</button>
+    </div>
+    <!-- <img id="camera-view" alt="camera view" /> -->
+    <div id="canvas-container">
+      <h2 id="console-title">Rasterizer Projekat</h2>
+      <div>
+        <p id="scene-title">Environment Map (Front, Right, Behind, Left)</p>
+        <canvas width="512" height="512" id="test-canvas"></canvas>
+      </div>
+      <canvas width="800" height="800" id="canvas"></canvas>
+    </div>
+    <script src="Color.js"></script>
+    <script src="Math.js"></script>
+    <script src="Texture.js"></script>
+    <script src="GeometricObjects.js"></script>
+    <script src="Rasterizer.js"></script>
+    <script src="main.js"></script>
+    <script src="BumpMap.js"></script>
+    <script src="OBJInstance.js"></script>
+    <script src="EnvironmentMap.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Scenes.js"></script>
+    <script src="renderScenes.js"></script>
+    
+  </body>
+</html>
