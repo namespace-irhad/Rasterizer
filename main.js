@@ -345,7 +345,45 @@ var RenderTriangle = function (triangle, vertices, projected, camera, lights, or
           // Normal map to get a normal vector for the specified pixel
 
           if (triangle.bump_map) {
-            normal = triangle.bump_map.getNormal(u, v);
+            // Get tangent vector for the specified pixel
+
+            // Triangle vertices in world space.
+            const v1 = vertices[triangle.indexes[0]];
+            const v2 = vertices[triangle.indexes[1]];
+            const v3 = vertices[triangle.indexes[2]];
+
+            // Get triangle edges
+            var e1 = new Vertex(v2.x - v1.x, v2.y - v1.y, v2.z - v1.z);
+            var e2 = new Vertex(v3.x - v1.x, v3.y - v1.y, v3.z - v1.z);
+
+            // https://learnopengl.com/Advanced-Lighting/Normal-Mapping
+            // Get delta UV coordinates
+            var duv1 = new Vertex(triangle.uvs[0].x - triangle.uvs[1].x, triangle.uvs[0].y - triangle.uvs[1].y, 0);
+            var duv2 = new Vertex(triangle.uvs[0].x - triangle.uvs[2].x, triangle.uvs[0].y - triangle.uvs[2].y, 0);
+            // Calculate tangent and bitangent
+            const f = 1.0 / (duv1.x * duv2.y - duv2.x * duv1.y);
+            const tangent = new Vertex(
+              f * (duv2.y * e1.x - duv1.y * e2.x),
+              f * (duv2.y * e1.y - duv1.y * e2.y),
+              f * (duv2.y * e1.z - duv1.y * e2.z)
+            );
+            const bitangent = new Vertex(
+              f * (-duv2.x * e1.x + duv1.x * e2.x),
+              f * (-duv2.x * e1.y + duv1.x * e2.y),
+              f * (-duv2.x * e1.z + duv1.x * e2.z)
+            );
+            // Calculate the normal for the specified pixel
+            normal = new Vertex(
+              normal.x +
+                triangle.bump_map.getNormal(u, v).x * tangent.x +
+                triangle.bump_map.getNormal(u, v).y * bitangent.x,
+              normal.y +
+                triangle.bump_map.getNormal(u, v).x * tangent.y +
+                triangle.bump_map.getNormal(u, v).y * bitangent.y,
+              normal.z +
+                triangle.bump_map.getNormal(u, v).x * tangent.z +
+                triangle.bump_map.getNormal(u, v).y * bitangent.z
+            );
           }
 
           var intensity = ComputeIllumination(vertex, normal, camera, lights);
@@ -355,6 +393,7 @@ var RenderTriangle = function (triangle, vertices, projected, camera, lights, or
     }
   }
 };
+
 // Clips a triangle against a plane. Adds output to triangles and vertices.
 var ClipTriangle = function (triangle, plane, triangles, vertices) {
   var v0 = vertices[triangle.indexes[0]];

@@ -14,8 +14,8 @@ const vertices = [
 
 let wood_texture = new Texture('./assets/crate-texture.jpg');
 // const bump_wood_texture = new BumpMap('./assets/bump-map.png');
-// const bump_wood_texture = new BumpMap('./assets/normal.jpg');
-const bump_wood_texture = new BumpMap('./assets/bricks.png');
+const bump_wood_texture = new BumpMap('./assets/normal.jpg');
+// const bump_wood_texture = new BumpMap('./assets/bricks.png');
 // const bump_wood_texture = new BumpMap('./assets/rock.jpg');
 
 let triangles = [

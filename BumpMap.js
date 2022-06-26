@@ -38,6 +38,12 @@ class BumpMap {
     const iv = (v * this.ih) | 0;
     const offset = iv * this.iw * 4 + iu * 4;
 
-    return new Vertex(this.pixel_data.data[offset + 0] / 255, 0, this.pixel_data.data[offset + 2] / 255);
+    return new Vertex(
+      this.pixel_data.data[offset + 0] / 255.0,
+      this.pixel_data.data[offset + 1] / 255.0,
+      this.pixel_data.data[offset + 2] / 255.0
+    );
+
+    // return new Vertex(this.pixel_data.data[offset + 0] / 255, 0, this.pixel_data.data[offset + 2] / 255);
   }
 }
