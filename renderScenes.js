@@ -42,7 +42,7 @@ const saveScene = (scene) => {
 
 // When page loads, check if scene is saved and call Scene
 const checkScene = () => {
-  console.log(localStorage);
+  console.log(localStorage.getItem('scene'));
   if (localStorage.getItem('scene') === 'scene1') {
     Scene1();
   }

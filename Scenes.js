@@ -163,7 +163,6 @@ const Scene1 = () => {
   };
 
   function Render() {
-    Rasterizer.ClearAll();
     // This lets the browser clear the canvas before blocking to render the scene.
     setTimeout(function () {
       RenderScene(camera, instances, lights, canvas, canvas_buffer);
@@ -321,7 +320,6 @@ const Scene2 = () => {
   };
 
   function Render() {
-    Rasterizer.ClearAll();
     // This lets the browser clear the canvas before blocking to render the scene.
     setTimeout(function () {
       RenderScene(camera, instances, lights, canvas, canvas_buffer);
@@ -370,7 +368,6 @@ const Scene3 = () => {
   const lights = [new Light(LT_AMBIENT, 0.2), new Light(LT_POINT, 0.6, new Vertex(-3, 2, -10))];
 
   function Render() {
-    Rasterizer.ClearAll();
     // This lets the browser clear the canvas before blocking to render the scene.
     setTimeout(function () {
       RenderScene(camera, instances, lights, canvas, canvas_buffer);
@@ -419,7 +416,6 @@ const Scene4 = () => {
   const lights = [new Light(LT_AMBIENT, 0.2), new Light(LT_POINT, 0.6, new Vertex(-3, 2, -10))];
 
   function Render() {
-    Rasterizer.ClearAll();
     // This lets the browser clear the canvas before blocking to render the scene.
     setTimeout(function () {
       RenderScene(camera, instances, lights, canvas, canvas_buffer);
@@ -467,7 +463,6 @@ const Scene5 = () => {
   const lights = [new Light(LT_AMBIENT, 0.2), new Light(LT_POINT, 0.6, new Vertex(-3, 2, -10))];
 
   function Render() {
-    Rasterizer.ClearAll();
     // This lets the browser clear the canvas before blocking to render the scene.
     setTimeout(function () {
       RenderScene(camera, instances, lights, canvas, canvas_buffer);
