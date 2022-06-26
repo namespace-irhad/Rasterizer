@@ -267,7 +267,7 @@ const Scene1 = () => {
         instances = [textureInstance, ...instances];
         RenderScene(camera, instances, lights, canvas, canvas_buffer);
         Rasterizer.updateCanvas(canvas_context, canvas_buffer);
-      }, 10);
+      }, 200);
     }, 0);
   }
 
@@ -332,7 +332,7 @@ const Scene2 = () => {
       setTimeout(() => {
         RenderScene(camera, instances, lights, canvas, canvas_buffer);
         Rasterizer.updateCanvas(canvas_context, canvas_buffer);
-      }, 10);
+      }, 200);
     }, 0);
   }
 
@@ -380,7 +380,7 @@ const Scene3 = () => {
       setTimeout(() => {
         RenderScene(camera, instances, lights, canvas, canvas_buffer);
         Rasterizer.updateCanvas(canvas_context, canvas_buffer);
-      }, 10);
+      }, 200);
     }, 0);
   }
 
@@ -427,7 +427,7 @@ const Scene4 = () => {
       setTimeout(() => {
         RenderScene(camera, instances, lights, canvas, canvas_buffer);
         Rasterizer.updateCanvas(canvas_context, canvas_buffer);
-      }, 10);
+      }, 200);
     }, 0);
   }
 
@@ -473,7 +473,7 @@ const Scene5 = () => {
       setTimeout(() => {
         RenderScene(camera, instances, lights, canvas, canvas_buffer);
         Rasterizer.updateCanvas(canvas_context, canvas_buffer);
-      }, 10);
+      }, 200);
     }, 0);
   }
 
